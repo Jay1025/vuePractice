@@ -23,7 +23,8 @@ export default {
   computed: {
     ...mapState(['timer', 'result', 'halted'])
   },
-  methods: {
+  methods:{},
+  watch: {
     halted(value, oldValue) {
       if (value === false) {
         //false일 때 게임 시작
@@ -44,7 +45,7 @@ table {
   border-collapse: collapse;
 }
 td {
-  border: 2px solid black;
+  border: 1px solid black;
   width: 40px;
   height: 40px;
   text-align: center;

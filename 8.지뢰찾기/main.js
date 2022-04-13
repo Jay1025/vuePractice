@@ -1,4 +1,6 @@
-import Vue from 'vue'
-import MineSweeper from './MineSweeper'
+import Vue from "vue";
+import MineSweeper from "./MineSweeper";
 
-new Vue(MineSweeper).$mount('#root')
+new Vue({
+  render: (createElement) => createElement(MineSweeper),
+}).$mount("#root");

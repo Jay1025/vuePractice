@@ -16,7 +16,7 @@
 
 <script>
 import { mapState } from 'vuex'
-import { CODE, FLAG_CELL, OPEN_CELL } from './store'
+import { CLICK_MINE, CODE, FLAG_CELL, NORMALIZE_CELL, OPEN_CELL, QUESTION_CELL } from './store'
 
 export default {
   computed: {
@@ -54,7 +54,7 @@ export default {
         switch (this.$store.state.tableData[row][cell]) {
           case CODE.MINE:
             return 'X'
-          case COME.NORMAL:
+          case CODE.NORMAL:
             return ''
           case CODE.FLAG_MINE:
           case CODE.FLAG:
@@ -63,20 +63,27 @@ export default {
           case CODE.QUESTION:
             return '?'
           case CODE.CLICKED_MINE:
-            return '꽝'
+            return '펑'
           default:
-            return ''
-        }
+            return this.$store.state.tableData[row][cell] || '';
+          }
       }
     }
   },
   methods: {
     onClickTd(row, cell) {
-      if (this.halted) {
-        return
-      }
-      this.$store.commit(OPEN_CELL), { row, cell }
-    },
+        if (this.halted) {
+          return;
+        }
+        switch (this.tableData[row][cell]) {
+          case CODE.NORMAL:
+            return this.$store.commit(OPEN_CELL, { row, cell });
+          case CODE.MINE:
+            return this.$store.commit(CLICK_MINE, { row, cell });
+          default:
+            return;
+        }
+      },
     onRightClickTd(row, cell) {
       if (this.halted) {
         return
@@ -93,11 +100,11 @@ export default {
         case CODE.QUESTION_MINE:
         case CODE.QUESTION:
           this.$store.commit(NORMALIZE_CELL, { row, cell })
-          return
+          return;
+           default:
+            return;
       }
     }
   }
 }
 </script>
-
-<style></style>

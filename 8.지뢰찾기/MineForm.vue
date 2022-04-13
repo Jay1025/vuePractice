@@ -22,10 +22,10 @@ export default {
       this.row = e.target.value
     },
     onChangeCell() {
-      this.row = e.target.value
+      this.cell = e.target.value
     },
     onChangeMine() {
-      this.row = e.target.value
+      this.mine = e.target.value
     },
     onClickBtn() {
       this.$store.commit(START_GAME, { row: this.row, cell: this.cell, mine: this.mine })
